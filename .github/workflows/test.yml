@@ -20,6 +20,7 @@ jobs:
     outputs:
       a: ${{ steps.test.outputs[0].test }}
       b: ${{ steps.test.outputs[1].test }}
+      all: ${{ steps.test.outputs.test }}
 
 
     steps:
@@ -41,4 +42,5 @@ jobs:
         run: |
           echo ${{ needs.test.outputs.a }}
           echo ${{ needs.test.outputs.b }}
+          echo ${{ needs.test.outputs.all }}
         shell: bash
