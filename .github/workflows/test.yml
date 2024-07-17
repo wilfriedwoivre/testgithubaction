@@ -1,0 +1,33 @@
+name: 'test'
+
+on:
+    workflow_dispatch:
+        inputs:
+            a:
+                required: false
+                default: 'a'
+            b:
+                required: false
+                default: 'b'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test: ['${{ github.event.inputs.a }}', '${{ github.event.inputs.b }}']
+
+    outputs:
+      a: ${{ steps.test.outputs[0].test }}
+      b: ${{ steps.test.outputs[1].test }}
+
+
+    steps:
+      - name: test
+        id: test
+        run: |
+          echo ${{ matrix.test }}
+        shell: bash
+
+
+      
