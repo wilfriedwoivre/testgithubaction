@@ -1,27 +1,26 @@
-name: 'test'
+name: "test"
 
 on:
-    workflow_dispatch:
-        inputs:
-            a:
-                required: false
-                default: 'a'
-            b:
-                required: false
-                default: 'b'
+  workflow_dispatch:
+    inputs:
+      a:
+        required: false
+        default: "a"
+      b:
+        required: false
+        default: "b"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        test: ['${{ github.event.inputs.a }}', '${{ github.event.inputs.b }}']
+        test: ["${{ github.event.inputs.a }}", "${{ github.event.inputs.b }}"]
 
     outputs:
       a: ${{ steps.test.outputs[0].test }}
       b: ${{ steps.test.outputs[1].test }}
       all: ${{ steps.test.outputs.test }}
-
 
     steps:
       - name: test
@@ -32,15 +31,13 @@ jobs:
         env:
           test: ${{ matrix.test }}
 
-
-      
   result:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: result
         run: |
-          echo ${{ needs.test.outputs.a }}
-          echo ${{ needs.test.outputs.b }}
-          echo ${{ needs.test.outputs.all }}
+          echo "${{ needs.test.outputs.a }}"
+          echo "${{ needs.test.outputs.b }}"
+          echo "${{ needs.test.outputs.all }}"
         shell: bash
