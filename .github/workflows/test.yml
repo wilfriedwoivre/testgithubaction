@@ -20,7 +20,7 @@ jobs:
     outputs:
       a: ${{ steps.test.outputs[0].test }}
       b: ${{ steps.test.outputs[1].test }}
-      all: ${{ steps.test.outputs.test }}
+      all: ${{ fromJson(steps.test.outputs.test) }}
 
     steps:
       - name: test
