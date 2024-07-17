@@ -26,8 +26,10 @@ jobs:
       - name: test
         id: test
         run: |
-          echo "test=${{ matrix.test }}" >> "$GITHUB_OUTPUT"
+          echo "test=${{ env.test }}" >> "$GITHUB_OUTPUT"
         shell: bash
+        env:
+          test: ${{ matrix.test }}
 
 
       
