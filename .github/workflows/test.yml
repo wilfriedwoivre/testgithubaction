@@ -38,6 +38,5 @@ jobs:
     steps:
       - name: result
         run: |
-          echo "${{ needs.test.outputs.a }}"
-          echo "${{ needs.test.outputs.b }}"
+          echo "${{ toJson(needs.test.outputs) }}"
         shell: bash
