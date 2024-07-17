@@ -31,3 +31,12 @@ jobs:
 
 
       
+  result:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: result
+        run: |
+          echo ${{ needs.test.outputs.a }}
+          echo ${{ needs.test.outputs.b }}
+        shell: bash
