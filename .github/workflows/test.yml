@@ -15,18 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        test: ["${{ github.event.inputs.a }}", "${{ github.event.inputs.b }}"]
+        test: 
+          - "${{ github.event.inputs.a }}"
+          - "${{ github.event.inputs.b }}"
 
     outputs:
       a: ${{ steps.test.outputs[0].test }}
       b: ${{ steps.test.outputs[1].test }}
-      all: ${{ fromJson(steps.test.outputs.test) }}
 
     steps:
       - name: test
         id: test
         run: |
-          echo "test=${{ env.test }}" >> "$GITHUB_OUTPUT"
+          echo "test=${{ env.test }}" >> $GITHUB_OUTPUT
         shell: bash
         env:
           test: ${{ matrix.test }}
@@ -39,5 +40,4 @@ jobs:
         run: |
           echo "${{ needs.test.outputs.a }}"
           echo "${{ needs.test.outputs.b }}"
-          echo "${{ needs.test.outputs.all }}"
         shell: bash
